@@ -1,22 +1,21 @@
-# Avito Deal Probability Prediction using ANN – README Explanation
+# Avito Deal Probability Prediction using ANN 
 
 This project implements an Artificial Neural Network (ANN) for predicting the deal probability of Avito listings. The pipeline follows a structured end-to-end approach, including data cleaning, preprocessing, feature engineering, encoding, scaling, model building, hyperparameter tuning, and evaluation.
 
 ---
 
 ## 1. Data Loading and Sampling
-The dataset `regression_avito_deals.xlsx` is loaded, and a 10% random sample is taken to accelerate initial experiments.
+The dataset 'regression_avito_deals.xlsx' is loaded, and a 10% random sample is taken to accelerate initial experiments.
 
 **Dataset Link:**  
 [Google Drive Dataset](https://docs.google.com/spreadsheets/d/1Qv5rrzmkFZCzbKnovFikmisG-KiIz8DM/edit?usp=drive_link&ouid=117339924051817037398&rtpof=true&sd=true)
-
 
 ---
 
 ## 2. Initial Data Exploration
 - Columns with very low variance or a single unique value are removed.
 - Missing values are handled appropriately:
-  - `param_3` → filled with `'Unknown'`.
+  - param_3 → filled with 'Unknown'.
   - Other categorical columns → filled with mode.
   - Numerical columns → filled with mean.
 
@@ -29,28 +28,28 @@ The dataset `regression_avito_deals.xlsx` is loaded, and a 10% random sample is 
 ---
 
 ## 4. Feature Grouping and Engineering
-- High-cardinality categorical features (`param_1`, `param_2`, `param_3`) are grouped into logical clusters.
-- Rare categories in `category_name` are replaced with `"Other"`.
+- High-cardinality categorical features (param_1, param_2, param_3) are grouped into logical clusters.
+- Rare categories in 'category_name' are replaced with "Other".
 - New features created:
-  - `category_encoded`: target-encoded using K-Fold smoothing.
-  - `category_popularity`: count of items per category.
-  - `city_grouped`: top 15 cities preserved, others labeled as `"Other"`.
-  - `region_activity`: count of items per region.
-  - `desc_length`: length of the description.
-  - Date-based features: year, month, weekday from `activation_date`.
+  - category_encoded: target-encoded using K-Fold smoothing.
+  - category_popularity: count of items per category.
+  - city_grouped: top 15 cities preserved, others labeled as "Other".
+  - region_activity: count of items per region.
+  - desc_length: length of the description.
+  - Date-based features: year, month, weekday from 'activation_date'.
 
 ---
 
 ## 5. Feature Selection
-- Features strongly correlated with the target (`deal_probability`) are retained.
+- Features strongly correlated with the target ('deal_probability') are retained.
 - Multicollinearity is checked using correlation thresholds and VIF, removing redundant variables to improve stability.
 
 ---
 
 ## 6. Encoding and Scaling
 - Remaining categorical features are one-hot encoded.
-- Features are standardized using `StandardScaler` to ensure consistent scale for the ANN.
-- Dataset is split into input features (`X`) and target (`y`).
+- Features are standardized using StandardScaler to ensure consistent scale for the ANN.
+- Dataset is split into input features (x) and target (y).
 
 ---
 
@@ -71,7 +70,7 @@ The dataset `regression_avito_deals.xlsx` is loaded, and a 10% random sample is 
 ## 9. Hyperparameter Optimization with Optuna
 - Optuna searches for the best hyperparameters:
   - Number of neurons in each hidden layer.
-  - Optimizer choice (`Adam`, `SGD`, `RMSprop`, `Adagrad`).
+  - Optimizer choice (Adam, SGD, RMSprop, Adagrad).
   - Learning rate.
   - Batch size and epochs.
 - Each trial trains the ANN and evaluates R² on the test set.
@@ -103,4 +102,4 @@ This ANN pipeline:
 - Produces a well-optimized ANN for regression tasks.
 - Provides clear evaluation metrics for interpretation.
 
-The result is a fully functional ANN capable of predicting `deal_probability` with optimized architecture and parameters.
+The result is a fully functional ANN capable of predicting 'deal_probability' with optimized architecture and parameters.
